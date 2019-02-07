@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-type Response struct {
+type response struct {
 	Hostname     string            `json:"hostname"`
 	IPAddress    string            `json:"ip_address"`
 	MacAddresses map[string]string `json:"mac_addresses"`
@@ -54,7 +54,11 @@ func getMacAddresses() map[string]string {
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		resp := Response{Hostname: getHostname(), IPAddress: getIPAddress(), MacAddresses: getMacAddresses()}
+		resp := response{
+			Hostname:     getHostname(),
+			IPAddress:    getIPAddress(),
+			MacAddresses: getMacAddresses(),
+		}
 		w.Header().Set("Content-Type", "application/json")
 		enc := json.NewEncoder(w)
 		enc.SetIndent("", "    ")
