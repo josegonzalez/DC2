@@ -8,9 +8,9 @@ import (
 )
 
 type Response struct {
-	Hostname     string   `json:"hostname"`
-	IPAddress    string   `json:"ip_address"`
-	MacAddresses []string `json:"mac_addresses"`
+	Hostname     string            `json:"hostname"`
+	IPAddress    string            `json:"ip_address"`
+	MacAddresses map[string]string `json:"mac_addresses"`
 }
 
 func getHostname() (name string) {
@@ -35,16 +35,18 @@ func getIPAddress() string {
 	return ""
 }
 
-func getMacAddresses() (as []string) {
+func getMacAddresses() map[string]string {
+	as := make(map[string]string)
 	ifas, err := net.Interfaces()
 	if err != nil {
 		return as
 	}
 
 	for _, ifa := range ifas {
+		n := ifa.Name
 		a := ifa.HardwareAddr.String()
 		if a != "" {
-			as = append(as, a)
+			as[n] = a
 		}
 	}
 	return as
@@ -52,8 +54,11 @@ func getMacAddresses() (as []string) {
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+		resp := Response{Hostname: getHostname(), IPAddress: getIPAddress(), MacAddresses: getMacAddresses()}
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(Response{Hostname: getHostname(), IPAddress: getIPAddress(), MacAddresses: getMacAddresses()})
+		enc := json.NewEncoder(w)
+		enc.SetIndent("", "    ")
+		enc.Encode(resp)
 	})
 
 	http.ListenAndServe(":8765", nil)
