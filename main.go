@@ -10,7 +10,7 @@ import (
 type response struct {
 	Version      string            `json:"version"`
 	Hostname     string            `json:"hostname"`
-	IPAddress    string            `json:"ip_address"`
+	IPAddress    string            `json:"ip"`
 	MacAddresses map[string]string `json:"mac_addresses"`
 }
 
