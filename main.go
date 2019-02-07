@@ -8,10 +8,14 @@ import (
 )
 
 type response struct {
+	Version      string            `json:"version"`
 	Hostname     string            `json:"hostname"`
 	IPAddress    string            `json:"ip_address"`
 	MacAddresses map[string]string `json:"mac_addresses"`
 }
+
+// Version for sshd-config
+var Version string
 
 func getHostname() (name string) {
 	name, _ = os.Hostname()
@@ -58,6 +62,7 @@ func main() {
 			Hostname:     getHostname(),
 			IPAddress:    getIPAddress(),
 			MacAddresses: getMacAddresses(),
+			Version:      Version,
 		}
 		w.Header().Set("Content-Type", "application/json")
 		enc := json.NewEncoder(w)
