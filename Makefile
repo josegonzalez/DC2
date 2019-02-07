@@ -1,7 +1,7 @@
 GH_USER ?= josegonzalez
 NAME = dc2
 HARDWARE = $(shell uname -m)
-VERSION ?= 0.0.1
+VERSION ?= 0.1.0
 
 build: clean $(NAME)
 	mkdir -p build/linux  && GOOS=linux  go build -ldflags "-X main.Version=$(VERSION)" -a -o build/linux/$(NAME)
