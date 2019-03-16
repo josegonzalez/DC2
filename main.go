@@ -93,7 +93,7 @@ type githubRelease struct {
 	Body       interface{} `json:"body"`
 }
 
-// Version for sshd-config
+// Version for dc2
 var Version string
 
 func getHostname() (name string) {
