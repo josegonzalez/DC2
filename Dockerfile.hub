@@ -1,0 +1,3 @@
+FROM scratch
+COPY ./build/linux/dc2 /dc2
+ENTRYPOINT ["/dc2"]
