@@ -1,4 +1,4 @@
-# dc2
+# dc2 [![CircleCI](https://circleci.com/gh/josegonzalez/dc2.svg?style=svg)](https://circleci.com/gh/josegonzalez/dc2)
 
 A replacement api service for the [DC2](https://github.com/hardtware/DC2) built in golang.
 
