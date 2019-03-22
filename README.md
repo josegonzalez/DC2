@@ -4,7 +4,7 @@ A replacement api service for the [DC2](https://github.com/hardtware/DC2) built 
 
 ## requirements
 
-- golang 1.11+
+- golang 1.12+
 
 ## usage
 
